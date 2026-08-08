@@ -1,76 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BitLife Clone</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneLife - Life Simulation</title>
     <style>
-        /* ---------- RESET & BASE ---------- */
+        /* ----- GLOBAL RESET & DARK THEME ----- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0a0e17;
-            color: #e8e8e8;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0b0f17;
+            color: #e6edf5;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 12px;
         }
         #app {
-            max-width: 1400px;
+            max-width: 1300px;
             width: 100%;
-            background: #0f1624;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            background: #10161f;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             min-height: 90vh;
             position: relative;
         }
-
-        /* ---------- SCROLLBAR ---------- */
+        /* scrollbar */
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #0a0e17;
+            background: #10161f;
         }
         ::-webkit-scrollbar-thumb {
-            background: #2d4b7c;
+            background: #2a3c5a;
             border-radius: 8px;
         }
 
-        /* ---------- HEADER / TOP BAR ---------- */
+        /* ----- TOP BAR ----- */
         .top-bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 8px 16px;
-            padding: 12px 20px;
-            background: #0c1422;
-            border-bottom: 1px solid #1a2740;
+            gap: 8px 14px;
+            padding: 10px 20px;
+            background: #0d121b;
+            border-bottom: 1px solid #1a2535;
         }
         .top-bar .logo {
             font-weight: 700;
             font-size: 1.2rem;
-            color: #c9a84c;
+            color: #b8a35c;
             letter-spacing: 0.5px;
-            margin-right: 12px;
         }
         .top-bar .logo span {
-            color: #4a7ab5;
+            color: #4a7eb5;
         }
         .top-bar .btn {
-            background: #1a2740;
+            background: #1a2535;
             border: none;
-            color: #d0d8e8;
-            padding: 6px 14px;
+            color: #b8c8e0;
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             cursor: pointer;
@@ -78,29 +76,23 @@
             font-weight: 500;
         }
         .top-bar .btn:hover {
-            background: #2d4b7c;
+            background: #2a3c5a;
             color: #fff;
         }
         .top-bar .btn.new-life {
-            background: #c9a84c;
-            color: #0a0e17;
+            background: #b8a35c;
+            color: #0b0f17;
         }
         .top-bar .btn.new-life:hover {
-            background: #dbb95c;
-        }
-        .top-bar .btn.danger {
-            color: #e74c3c;
-        }
-        .top-bar .btn.danger:hover {
-            background: #3d1a1a;
+            background: #cfb86e;
         }
         .top-bar .spacer {
             flex: 1;
         }
         .top-bar .hidden-toggle {
-            background: #1a2740;
-            border: 1px solid #2d4b7c;
-            color: #a0b4d0;
+            background: #1a2535;
+            border: 1px solid #2a3c5a;
+            color: #8aa0c0;
             padding: 5px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -108,24 +100,24 @@
             transition: 0.2s;
         }
         .top-bar .hidden-toggle:hover {
-            background: #2d4b7c;
+            background: #2a3c5a;
             color: #fff;
         }
         .top-bar .hidden-toggle.active {
-            background: #2d4b7c;
+            background: #2a3c5a;
             color: #fff;
-            border-color: #4a7ab5;
+            border-color: #4a7eb5;
         }
 
-        /* ---------- CHARACTER CARD ---------- */
+        /* ----- CHARACTER CARD ----- */
         .char-card {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 8px 24px;
-            padding: 10px 20px;
-            background: #0c1422;
-            border-bottom: 1px solid #1a2740;
+            gap: 6px 20px;
+            padding: 8px 20px;
+            background: #0d121b;
+            border-bottom: 1px solid #1a2535;
             font-size: 0.9rem;
         }
         .char-card .name {
@@ -134,7 +126,7 @@
             color: #fff;
         }
         .char-card .badge {
-            background: #1a2740;
+            background: #1a2535;
             padding: 2px 12px;
             border-radius: 12px;
             font-size: 0.75rem;
@@ -143,7 +135,7 @@
         .char-card .stat-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px 18px;
+            gap: 4px 16px;
             margin-left: auto;
         }
         .char-card .stat-item {
@@ -155,7 +147,7 @@
         .char-card .stat-item .bar-bg {
             width: 60px;
             height: 6px;
-            background: #1a2740;
+            background: #1a2535;
             border-radius: 4px;
             overflow: hidden;
         }
@@ -165,16 +157,16 @@
             transition: width 0.3s;
         }
         .char-card .stat-item .bar-fill.green {
-            background: #2ecc71;
+            background: #4caf84;
         }
         .char-card .stat-item .bar-fill.blue {
-            background: #3498db;
+            background: #4299e1;
         }
         .char-card .stat-item .bar-fill.purple {
-            background: #9b59b6;
+            background: #9f7aea;
         }
         .char-card .stat-item .bar-fill.pink {
-            background: #e74c8b;
+            background: #e879b8;
         }
         .char-card .stat-value {
             min-width: 22px;
@@ -184,26 +176,26 @@
             color: #b0c4e0;
         }
 
-        /* ---------- AGE & MONEY BAR ---------- */
+        /* ----- AGE & MONEY BAR ----- */
         .age-money-bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px 24px;
+            gap: 8px 18px;
             padding: 6px 20px;
-            background: #0c1422;
-            border-bottom: 1px solid #1a2740;
+            background: #0d121b;
+            border-bottom: 1px solid #1a2535;
             font-size: 0.9rem;
         }
         .age-money-bar .age {
             font-weight: 600;
             font-size: 1.1rem;
-            color: #4a7ab5;
+            color: #4a7eb5;
         }
         .age-money-bar .money {
             font-weight: 600;
             font-size: 1.1rem;
-            color: #c9a84c;
+            color: #b8a35c;
         }
         .age-money-bar .job {
             color: #8aa0c0;
@@ -218,7 +210,7 @@
             color: #fff;
         }
         .age-money-bar .alive-badge {
-            background: #2ecc71;
+            background: #4caf84;
             padding: 2px 14px;
             border-radius: 16px;
             font-size: 0.75rem;
@@ -234,7 +226,7 @@
             color: #fff;
         }
 
-        /* ---------- MAIN LAYOUT: SIDEBAR + CONTENT ---------- */
+        /* ----- MAIN LAYOUT ----- */
         .main-layout {
             display: flex;
             flex: 1;
@@ -243,9 +235,9 @@
         .sidebar {
             width: 200px;
             min-width: 160px;
-            background: #0c1422;
+            background: #0d121b;
             padding: 12px 0;
-            border-right: 1px solid #1a2740;
+            border-right: 1px solid #1a2535;
             overflow-y: auto;
             flex-shrink: 0;
         }
@@ -253,7 +245,7 @@
             padding: 10px 18px;
             cursor: pointer;
             font-size: 0.9rem;
-            color: #a0b4d0;
+            color: #8aa0c0;
             border-left: 3px solid transparent;
             transition: 0.15s;
             display: flex;
@@ -262,22 +254,21 @@
         }
         .sidebar .cat-item:hover {
             background: #141c2b;
-            color: #e8e8e8;
+            color: #e6edf5;
         }
         .sidebar .cat-item.active {
             background: #141c2b;
             color: #fff;
-            border-left-color: #4a7ab5;
+            border-left-color: #4a7eb5;
         }
         .sidebar .cat-item .icon {
             font-size: 1.1rem;
         }
-
         .content-area {
             flex: 1;
             padding: 16px 20px;
             overflow-y: auto;
-            background: #0f1624;
+            background: #10161f;
             min-height: 300px;
         }
         .content-area .section-title {
@@ -294,7 +285,7 @@
         }
         .content-area .grid .action-btn {
             background: #141c2b;
-            border: 1px solid #1a2740;
+            border: 1px solid #1a2535;
             border-radius: 12px;
             padding: 12px 8px;
             color: #d0d8e8;
@@ -309,10 +300,10 @@
             gap: 4px;
         }
         .content-area .grid .action-btn:hover {
-            background: #1a2740;
-            border-color: #2d4b7c;
+            background: #1a2535;
+            border-color: #2a3c5a;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
         }
         .content-area .grid .action-btn:active {
             transform: scale(0.96);
@@ -321,21 +312,21 @@
             font-size: 1.4rem;
         }
         .content-area .grid .action-btn.crime {
-            border-color: #6a1a1a;
+            border-color: #5a1a1a;
         }
         .content-area .grid .action-btn.crime:hover {
             border-color: #c0392b;
             background: #1a0e0e;
         }
         .content-area .grid .action-btn.relationship {
-            border-color: #6a1a4a;
+            border-color: #5a1a4a;
         }
         .content-area .grid .action-btn.relationship:hover {
             border-color: #c0397a;
             background: #1a0e14;
         }
         .content-area .grid .action-btn.job {
-            border-color: #1a4a6a;
+            border-color: #1a4a5a;
         }
         .content-area .grid .action-btn.job:hover {
             border-color: #2d7bb5;
@@ -349,14 +340,14 @@
             background: #0e1a0e;
         }
         .content-area .grid .action-btn.heirloom {
-            border-color: #6a5a1a;
+            border-color: #5a4a1a;
         }
         .content-area .grid .action-btn.heirloom:hover {
-            border-color: #c9a84c;
+            border-color: #b8a35c;
             background: #1a140e;
         }
         .content-area .grid .action-btn.bitpass {
-            border-color: #3a2a6a;
+            border-color: #3a2a5a;
         }
         .content-area .grid .action-btn.bitpass:hover {
             border-color: #7a4ac9;
@@ -378,12 +369,12 @@
         }
         .content-area .grid .action-btn.age {
             border-color: #3a4a6a;
-            background: #1a2740;
+            background: #1a2535;
             font-size: 1rem;
             font-weight: 700;
         }
         .content-area .grid .action-btn.age:hover {
-            border-color: #4a7ab5;
+            border-color: #4a7eb5;
             background: #1a2a4a;
         }
         .content-area .grid .action-btn .sub {
@@ -392,10 +383,10 @@
             font-weight: 400;
         }
 
-        /* ---------- HIDDEN TRAITS PANEL ---------- */
+        /* ----- HIDDEN TRAITS PANEL ----- */
         .hidden-panel {
-            background: #0c1422;
-            border-bottom: 1px solid #1a2740;
+            background: #0d121b;
+            border-bottom: 1px solid #1a2535;
             padding: 0 20px;
             max-height: 0;
             overflow: hidden;
@@ -425,20 +416,20 @@
         .hidden-panel .traits-grid .trait .bar-bg {
             width: 80px;
             height: 4px;
-            background: #1a2740;
+            background: #1a2535;
             border-radius: 4px;
             overflow: hidden;
         }
         .hidden-panel .traits-grid .trait .bar-fill {
             height: 100%;
             border-radius: 4px;
-            background: #4a7ab5;
+            background: #4a7eb5;
         }
 
-        /* ---------- EVENT LOG ---------- */
+        /* ----- LOG AREA ----- */
         .log-area {
-            background: #0a0e17;
-            border-top: 1px solid #1a2740;
+            background: #0b0f17;
+            border-top: 1px solid #1a2535;
             padding: 6px 20px 10px;
             max-height: 140px;
             overflow-y: auto;
@@ -448,7 +439,7 @@
         }
         .log-area .log-entry {
             padding: 2px 0;
-            border-bottom: 1px solid #0c1422;
+            border-bottom: 1px solid #0d121b;
             display: flex;
             gap: 8px;
         }
@@ -461,10 +452,10 @@
             color: #c8d0e0;
         }
         .log-area .log-entry .msg .highlight {
-            color: #c9a84c;
+            color: #b8a35c;
         }
 
-        /* ---------- FLOAT OVERLAY (GLASS-MORPHISM) ---------- */
+        /* ----- FLOAT OVERLAY (glass) ----- */
         .float-overlay {
             position: fixed;
             top: 0;
@@ -483,13 +474,13 @@
             opacity: 1;
         }
         .float-overlay .glass {
-            background: rgba(15, 22, 36, 0.85);
+            background: rgba(13, 18, 27, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(74, 122, 181, 0.25);
+            border: 1px solid rgba(74, 126, 181, 0.25);
             border-radius: 40px;
             padding: 24px 48px;
-            box-shadow: 0 0 60px rgba(74, 122, 181, 0.15), inset 0 0 60px rgba(74, 122, 181, 0.05);
+            box-shadow: 0 0 60px rgba(74, 126, 181, 0.15), inset 0 0 60px rgba(74, 126, 181, 0.05);
             transform: scale(0.8);
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: center;
@@ -503,7 +494,7 @@
             font-size: 2.2rem;
             font-weight: 700;
             color: #fff;
-            text-shadow: 0 0 40px rgba(74, 122, 181, 0.3);
+            text-shadow: 0 0 40px rgba(74, 126, 181, 0.3);
             letter-spacing: 0.5px;
             line-height: 1.3;
         }
@@ -523,7 +514,7 @@
             }
         }
 
-        /* ---------- RESPONSIVE ---------- */
+        /* ----- RESPONSIVE ----- */
         @media (max-width: 820px) {
             .sidebar {
                 width: 140px;
@@ -585,7 +576,7 @@
                 flex-wrap: wrap;
                 padding: 6px 8px;
                 border-right: none;
-                border-bottom: 1px solid #1a2740;
+                border-bottom: 1px solid #1a2535;
                 gap: 2px;
                 overflow-x: auto;
             }
@@ -597,7 +588,7 @@
                 white-space: nowrap;
             }
             .sidebar .cat-item.active {
-                border-bottom-color: #4a7ab5;
+                border-bottom-color: #4a7eb5;
                 border-left-color: transparent;
             }
             .content-area {
@@ -640,9 +631,9 @@
             }
         }
 
-        /* ---------- UTILITY ---------- */
+        /* ----- UTILITY ----- */
         .text-gold {
-            color: #c9a84c;
+            color: #b8a35c;
         }
         .text-muted {
             color: #6a8aaa;
@@ -668,23 +659,23 @@
             text-align: center;
         }
 
-        /* Hidden file input */
+        /* ----- Hidden file input ----- */
         #fileInput {
             display: none;
         }
 
-        /* ---------- New Life overlay (initial) ---------- */
+        /* ----- New Life overlay ----- */
         .new-life-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(10, 14, 23, 0.92);
+            background: rgba(11, 15, 23, 0.94);
             backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            border-radius: 24px;
+            border-radius: 20px;
             padding: 32px;
         }
         .new-life-overlay.hidden {
@@ -692,7 +683,7 @@
         }
         .new-life-overlay h1 {
             font-size: 3rem;
-            color: #c9a84c;
+            color: #b8a35c;
             margin-bottom: 8px;
             letter-spacing: 2px;
         }
@@ -702,20 +693,20 @@
             margin-bottom: 24px;
         }
         .new-life-overlay .btn-start {
-            background: #c9a84c;
+            background: #b8a35c;
             border: none;
-            color: #0a0e17;
+            color: #0b0f17;
             padding: 14px 48px;
             border-radius: 40px;
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             transition: 0.25s;
-            box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+            box-shadow: 0 0 40px rgba(184, 163, 92, 0.15);
         }
         .new-life-overlay .btn-start:hover {
             transform: scale(1.04);
-            box-shadow: 0 0 60px rgba(201, 168, 76, 0.25);
+            box-shadow: 0 0 60px rgba(184, 163, 92, 0.25);
         }
         .new-life-overlay .btn-start:active {
             transform: scale(0.96);
@@ -736,1120 +727,1153 @@
 </head>
 <body>
 
-    <div id="app">
-        <!-- NEW LIFE OVERLAY -->
-        <div class="new-life-overlay" id="newLifeOverlay">
-            <h1>🎲 BitLife</h1>
-            <p>Live a life. Make choices. Face consequences.</p>
-            <button class="btn-start" id="btnNewLife">New Life</button>
-        </div>
+<div id="app">
+    <!-- NEW LIFE OVERLAY -->
+    <div class="new-life-overlay" id="newLifeOverlay">
+        <h1>🎲 OneLife</h1>
+        <p>Live a life. Make choices. Face consequences.</p>
+        <button class="btn-start" id="btnNewLife">New Life</button>
+    </div>
 
-        <!-- TOP BAR -->
-        <div class="top-bar">
-            <div class="logo">Bit<span>Life</span></div>
-            <button class="btn new-life" id="btnNewLifeTop">✦ New Life</button>
-            <button class="btn" id="btnSave">💾 Save</button>
-            <button class="btn" id="btnLoad">📂 Load</button>
-            <input type="file" id="fileInput" accept=".bitlife" />
-            <span class="spacer"></span>
-            <button class="hidden-toggle" id="hiddenToggle">🧩 Show Hidden Traits</button>
-        </div>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="logo">One<span>Life</span></div>
+        <button class="btn new-life" id="btnNewLifeTop">✦ New Life</button>
+        <button class="btn" id="btnSave">💾 Save</button>
+        <button class="btn" id="btnLoad">📂 Load</button>
+        <input type="file" id="fileInput" accept=".onelife" />
+        <span class="spacer"></span>
+        <button class="hidden-toggle" id="hiddenToggle">🧩 Show Hidden Traits</button>
+    </div>
 
-        <!-- CHARACTER CARD -->
-        <div class="char-card" id="charCard">
-            <span class="name" id="charName">—</span>
-            <span class="badge" id="charGender">—</span>
-            <span class="badge" id="charCountry">—</span>
-            <div class="stat-group" id="statGroup">
-                <span class="stat-item">❤️ <span class="bar-bg"><span class="bar-fill green" id="happinessBar" style="width:0%"></span></span><span class="stat-value" id="happinessVal">0</span></span>
-                <span class="stat-item">🩺 <span class="bar-bg"><span class="bar-fill blue" id="healthBar" style="width:0%"></span></span><span class="stat-value" id="healthVal">0</span></span>
-                <span class="stat-item">🧠 <span class="bar-bg"><span class="bar-fill purple" id="smartsBar" style="width:0%"></span></span><span class="stat-value" id="smartsVal">0</span></span>
-                <span class="stat-item">😎 <span class="bar-bg"><span class="bar-fill pink" id="looksBar" style="width:0%"></span></span><span class="stat-value" id="looksVal">0</span></span>
-            </div>
-        </div>
-
-        <!-- AGE & MONEY BAR -->
-        <div class="age-money-bar" id="ageMoneyBar">
-            <span class="age" id="ageDisplay">Age: 0</span>
-            <span class="money" id="moneyDisplay">💰 $0</span>
-            <span class="job" id="jobDisplay">Unemployed</span>
-            <span class="job" id="eduDisplay">Education: None</span>
-            <span style="flex:1"></span>
-            <span id="statusBadge"></span>
-        </div>
-
-        <!-- HIDDEN TRAITS PANEL -->
-        <div class="hidden-panel" id="hiddenPanel">
-            <div class="traits-grid" id="traitsGrid"></div>
-        </div>
-
-        <!-- MAIN LAYOUT -->
-        <div class="main-layout">
-            <nav class="sidebar" id="sidebar"></nav>
-            <div class="content-area" id="contentArea">
-                <div class="section-title" id="sectionTitle">Select a category</div>
-                <div class="grid" id="actionGrid"></div>
-            </div>
-        </div>
-
-        <!-- EVENT LOG -->
-        <div class="log-area" id="logArea"></div>
-
-        <!-- FLOAT OVERLAY -->
-        <div class="float-overlay" id="floatOverlay">
-            <div class="glass">
-                <div class="tagline" id="taglineText">✨ Life</div>
-            </div>
+    <!-- CHARACTER CARD -->
+    <div class="char-card" id="charCard">
+        <span class="name" id="charName">—</span>
+        <span class="badge" id="charGender">—</span>
+        <span class="badge" id="charCountry">—</span>
+        <div class="stat-group" id="statGroup">
+            <span class="stat-item">❤️ <span class="bar-bg"><span class="bar-fill green" id="happinessBar" style="width:0%"></span></span><span class="stat-value" id="happinessVal">0</span></span>
+            <span class="stat-item">🩺 <span class="bar-bg"><span class="bar-fill blue" id="healthBar" style="width:0%"></span></span><span class="stat-value" id="healthVal">0</span></span>
+            <span class="stat-item">🧠 <span class="bar-bg"><span class="bar-fill purple" id="smartsBar" style="width:0%"></span></span><span class="stat-value" id="smartsVal">0</span></span>
+            <span class="stat-item">😎 <span class="bar-bg"><span class="bar-fill pink" id="looksBar" style="width:0%"></span></span><span class="stat-value" id="looksVal">0</span></span>
         </div>
     </div>
 
-    <script>
-        // ================================================================
-        //  BITLIFE CLONE — Complete Game
-        //  All code in one file, vanilla JS/CSS/HTML.
-        //  Extensible via menuConfig and applyEffects.
-        // ================================================================
+    <!-- AGE & MONEY BAR -->
+    <div class="age-money-bar" id="ageMoneyBar">
+        <span class="age" id="ageDisplay">Age: 0</span>
+        <span class="money" id="moneyDisplay">💰 $0</span>
+        <span class="job" id="jobDisplay">Unemployed</span>
+        <span class="job" id="eduDisplay">Education: None</span>
+        <span style="flex:1"></span>
+        <span id="statusBadge"></span>
+    </div>
 
-        // ---------- STATIC TAGLINES (pool of 24) ----------
-        const STATIC_TAGLINES = [
-            "I came, I saw, I failed",
-            "One of us. One of us.",
-            "Keep enemies closer",
-            "Friend Status: NONE",
-            "This isn't Facebook",
-            "Left on read",
-            "It's not me it's you",
-            "Forever alone",
-            "Request: Denied",
-            "True love",
-            "No looking back",
-            "Fresh start",
-            "The grind begins",
-            "Working class",
-            "Time = Money",
-            "Added to the résumé",
-            "On to bigger & better things",
-            "I'm free",
-            "#Blessed",
-            "Piece of cake",
-            "Another day, another dollar",
-            "Life comes at you fast",
-            "Well, that happened",
-            "Who needs therapy?"
-        ];
+    <!-- HIDDEN TRAITS PANEL -->
+    <div class="hidden-panel" id="hiddenPanel">
+        <div class="traits-grid" id="traitsGrid"></div>
+    </div>
 
-        // ---------- COUNTRIES ----------
-        const COUNTRIES = [
-            'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany',
-            'France', 'Italy', 'Spain', 'Netherlands', 'Sweden', 'Norway',
-            'Japan', 'South Korea', 'China', 'India', 'Brazil', 'Mexico',
-            'South Africa', 'Egypt', 'Nigeria', 'Russia', 'Turkey', 'Indonesia',
-            'Malaysia', 'Singapore', 'Philippines', 'Vietnam', 'Thailand'
-        ];
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+        <nav class="sidebar" id="sidebar"></nav>
+        <div class="content-area" id="contentArea">
+            <div class="section-title" id="sectionTitle">Select a category</div>
+            <div class="grid" id="actionGrid"></div>
+        </div>
+    </div>
 
-        const FIRST_NAMES_M = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas',
-            'Charles', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua', 'Kenneth',
-            'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan', 'Jacob', 'Gary', 'Nicholas',
-            'Eric', 'Jonathan', 'Stephen', 'Larry', 'Justin', 'Scott', 'Brandon', 'Benjamin', 'Samuel', 'Raymond', 'Gregory',
-            'Frank', 'Alexander', 'Patrick', 'Jack', 'Dennis', 'Jerry', 'Tyler'
-        ];
-        const FIRST_NAMES_F = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Barbara', 'Elizabeth', 'Susan', 'Jessica', 'Sarah',
-            'Karen', 'Lisa', 'Nancy', 'Betty', 'Helen', 'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle', 'Laura',
-            'Sarah', 'Kimberly', 'Deborah', 'Jessica', 'Shirley', 'Cynthia', 'Angela', 'Melissa', 'Brenda', 'Amy', 'Anna',
-            'Rebecca', 'Virginia', 'Kathleen', 'Pamela', 'Martha', 'Debra', 'Amanda', 'Stephanie', 'Carolyn', 'Christine',
-            'Marie', 'Janet', 'Catherine', 'Frances', 'Ann', 'Joyce', 'Diane', 'Alice'
-        ];
-        const LAST_NAMES = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez',
-            'Martinez', 'Hernandez', 'Lopez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin', 'Lee',
-            'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson', 'Walker', 'Young',
-            'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores', 'Green', 'Adams', 'Nelson', 'Baker',
-            'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts', 'Turner'
-        ];
+    <!-- EVENT LOG -->
+    <div class="log-area" id="logArea"></div>
 
-        const SEXUALITIES = ['Straight', 'Gay', 'Bisexual', 'Asexual'];
+    <!-- FLOAT OVERLAY -->
+    <div class="float-overlay" id="floatOverlay">
+        <div class="glass">
+            <div class="tagline" id="taglineText">✨ Life</div>
+        </div>
+    </div>
+</div>
 
-        // ---------- GAME STATE ----------
-        let G = {}; // will be initialized
+<script>
+    // ================================================================
+    //  ONELIFE — Complete Game
+    //  All code in one file, vanilla JS.
+    //  Extensible via menuConfig and applyEffects.
+    // ================================================================
 
-        function defaultState() {
-            return {
-                name: '',
-                gender: 'Male',
-                country: 'United States',
-                age: 0,
-                money: 0,
-                health: 0,
-                happiness: 0,
-                smarts: 0,
-                looks: 0,
-                job: 'Unemployed',
-                education: 'None',
-                married: false,
-                spouse: '',
-                inPrison: false,
-                prisonYears: 0,
-                alive: true,
-                // Hidden traits
-                athleticism: 0,
-                discipline: 0,
-                fertility: 0,
-                karma: 0,
-                sexuality: 'Straight',
-                willpower: 0,
-                // Heirlooms (simple array)
-                heirlooms: [],
-                // BitPass
-                bitPass: false,
-                bitPassBalance: 0,
-                // Assets
-                houses: 0,
-                cars: 0,
-                // Log
-                log: [],
-                // For age-up tracking
-                year: 0
-            };
-        }
+    // ---------- STATIC TAGLINES (pool of 24) ----------
+    const STATIC_TAGLINES = [
+        "I came, I saw, I failed",
+        "One of us. One of us.",
+        "Keep enemies closer",
+        "Friend Status: NONE",
+        "This isn't Facebook",
+        "Left on read",
+        "It's not me it's you",
+        "Forever alone",
+        "Request: Denied",
+        "True love",
+        "No looking back",
+        "Fresh start",
+        "The grind begins",
+        "Working class",
+        "Time = Money",
+        "Added to the résumé",
+        "On to bigger & better things",
+        "I'm free",
+        "#Blessed",
+        "Piece of cake",
+        "Another day, another dollar",
+        "Life comes at you fast",
+        "Well, that happened",
+        "Who needs therapy?"
+    ];
 
-        // ---------- HELPERS ----------
-        function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    // ---------- COUNTRIES ----------
+    const COUNTRIES = [
+        'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany',
+        'France', 'Italy', 'Spain', 'Netherlands', 'Sweden', 'Norway',
+        'Japan', 'South Korea', 'China', 'India', 'Brazil', 'Mexico',
+        'South Africa', 'Egypt', 'Nigeria', 'Russia', 'Turkey', 'Indonesia',
+        'Malaysia', 'Singapore', 'Philippines', 'Vietnam', 'Thailand'
+    ];
 
-        function randf(min, max) { return Math.random() * (max - min) + min; }
+    const FIRST_NAMES_M = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas',
+        'Charles', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua', 'Kenneth',
+        'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan', 'Jacob', 'Gary', 'Nicholas',
+        'Eric', 'Jonathan', 'Stephen', 'Larry', 'Justin', 'Scott', 'Brandon', 'Benjamin', 'Samuel', 'Raymond', 'Gregory',
+        'Frank', 'Alexander', 'Patrick', 'Jack', 'Dennis', 'Jerry', 'Tyler'
+    ];
+    const FIRST_NAMES_F = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Barbara', 'Elizabeth', 'Susan', 'Jessica', 'Sarah',
+        'Karen', 'Lisa', 'Nancy', 'Betty', 'Helen', 'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle', 'Laura',
+        'Sarah', 'Kimberly', 'Deborah', 'Jessica', 'Shirley', 'Cynthia', 'Angela', 'Melissa', 'Brenda', 'Amy', 'Anna',
+        'Rebecca', 'Virginia', 'Kathleen', 'Pamela', 'Martha', 'Debra', 'Amanda', 'Stephanie', 'Carolyn', 'Christine',
+        'Marie', 'Janet', 'Catherine', 'Frances', 'Ann', 'Joyce', 'Diane', 'Alice'
+    ];
+    const LAST_NAMES = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez',
+        'Martinez', 'Hernandez', 'Lopez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin', 'Lee',
+        'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson', 'Walker', 'Young',
+        'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores', 'Green', 'Adams', 'Nelson', 'Baker',
+        'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts', 'Turner'
+    ];
 
-        function pick(arr) { return arr[rand(0, arr.length - 1)]; }
+    const SEXUALITIES = ['Straight', 'Gay', 'Bisexual', 'Asexual'];
 
-        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    // ---------- GAME STATE ----------
+    let G = {};
 
-        function randomName(gender) {
-            const first = gender === 'Male' ? pick(FIRST_NAMES_M) : pick(FIRST_NAMES_F);
-            const last = pick(LAST_NAMES);
-            return first + ' ' + last;
-        }
+    function defaultState() {
+        return {
+            name: '',
+            gender: 'Male',
+            country: 'United States',
+            age: 0,
+            money: 0,
+            health: 0,
+            happiness: 0,
+            smarts: 0,
+            looks: 0,
+            job: 'Unemployed',
+            education: 'None',
+            married: false,
+            spouse: '',
+            inPrison: false,
+            prisonYears: 0,
+            alive: true,
+            // Hidden traits
+            athleticism: 0,
+            discipline: 0,
+            fertility: 0,
+            karma: 0,
+            sexuality: 'Straight',
+            willpower: 0,
+            // Heirlooms
+            heirlooms: [],
+            // BitPass
+            bitPass: false,
+            bitPassBalance: 0,
+            // Assets
+            houses: 0,
+            cars: 0,
+            // Log
+            log: [],
+            year: 0
+        };
+    }
 
-        function randomCountry() { return pick(COUNTRIES); }
+    // ---------- HELPERS ----------
+    function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
-        function randomSexuality() { return pick(SEXUALITIES); }
+    function randf(min, max) { return Math.random() * (max - min) + min; }
 
-        function randomGender() { return pick(['Male', 'Female']); }
+    function pick(arr) { return arr[rand(0, arr.length - 1)]; }
 
-        // ---------- APPLY EFFECTS (extensible core) ----------
-        /**
-         * applyEffects(effects, context)
-         *  effects: { health, happiness, smarts, looks, money, athleticism,
-         *             discipline, fertility, karma, willpower, ... }
-         *  All numeric values are added to current state, then clamped 0-100
-         *  (money is not clamped, but kept >= 0).
-         *  Use this in every action for consistency.
-         */
-        function applyEffects(effects) {
-            const map = {
-                health: 'health',
-                happiness: 'happiness',
-                smarts: 'smarts',
-                looks: 'looks',
-                athleticism: 'athleticism',
-                discipline: 'discipline',
-                fertility: 'fertility',
-                karma: 'karma',
-                willpower: 'willpower'
-            };
-            for (const [key, val] of Object.entries(effects)) {
-                if (key === 'money') {
-                    G.money = Math.max(0, G.money + val);
-                    continue;
-                }
-                if (map[key]) {
-                    G[map[key]] = clamp(G[map[key]] + val, 0, 100);
-                    continue;
-                }
-                // direct property
-                if (key in G && typeof G[key] === 'number') {
-                    G[key] = clamp(G[key] + val, 0, 100);
-                }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+    function randomName(gender) {
+        const first = gender === 'Male' ? pick(FIRST_NAMES_M) : pick(FIRST_NAMES_F);
+        const last = pick(LAST_NAMES);
+        return first + ' ' + last;
+    }
+
+    function randomCountry() { return pick(COUNTRIES); }
+
+    function randomSexuality() { return pick(SEXUALITIES); }
+
+    function randomGender() { return pick(['Male', 'Female']); }
+
+    // ---------- APPLY EFFECTS (extensible core) ----------
+    /**
+     * applyEffects(effects)
+     *  effects: { health, happiness, smarts, looks, money, athleticism,
+     *             discipline, fertility, karma, willpower, ... }
+     *  All numeric values are added to current state, then clamped 0-100
+     *  (money is not clamped, but kept >= 0).
+     *  Use this in every action for consistency.
+     */
+    function applyEffects(effects) {
+        const map = {
+            health: 'health',
+            happiness: 'happiness',
+            smarts: 'smarts',
+            looks: 'looks',
+            athleticism: 'athleticism',
+            discipline: 'discipline',
+            fertility: 'fertility',
+            karma: 'karma',
+            willpower: 'willpower'
+        };
+        for (const [key, val] of Object.entries(effects)) {
+            if (key === 'money') {
+                G.money = Math.max(0, G.money + val);
+                continue;
             }
-            // Clamp all stats
-            ['health', 'happiness', 'smarts', 'looks', 'athleticism', 'discipline', 'fertility', 'karma', 'willpower']
-            .forEach(s => { G[s] = clamp(G[s], 0, 100); });
-            G.money = Math.max(0, G.money);
-        }
-
-        // ---------- LOGGING ----------
-        function addLog(msg, highlight) {
-            const entry = { age: G.age, msg: msg, highlight: highlight || '' };
-            G.log.unshift(entry);
-            if (G.log.length > 200) G.log.pop();
-            renderLog();
-        }
-
-        // ---------- TAGLINE SYSTEM ----------
-        let taglineTimer = null;
-
-        function showTagline(text) {
-            const overlay = document.getElementById('floatOverlay');
-            const el = document.getElementById('taglineText');
-            // Add a random emoji prefix for fun
-            const emojis = ['✨', '🎯', '💫', '🔥', '⚡', '🌈', '🎲', '💪', '🧠', '❤️', '💰', '🎭'];
-            const emoji = pick(emojis);
-            el.innerHTML = `<span class="emoji">${emoji}</span> ${text}`;
-            overlay.classList.add('show');
-            clearTimeout(taglineTimer);
-            taglineTimer = setTimeout(() => {
-                overlay.classList.remove('show');
-            }, 2800);
-        }
-
-        // AI Tagline via OpenRouter
-        async function fetchAITagline(actionContext) {
-            const apiKey = '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';
-            const url = 'https://openrouter.ai/api/v1/chat/completions';
-            const systemPrompt =
-                `You are a witty AI that generates sarcastic, funny, or clever taglines for a BitLife-style life simulation game. The game features aging, stats (happiness, health, smarts, looks), careers, education, relationships, crime, random events, and death. Generate a single short, witty tagline (under 10 words) based on the action context. Be humorous, dark, or sarcastic. Respond with ONLY the tagline text, no quotes.`;
-
-            try {
-                const resp = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`,
-                        'HTTP-Referer': 'https://bitlife-clone.local',
-                    },
-                    body: JSON.stringify({
-                        model: 'openai/gpt-3.5-turbo',
-                        messages: [
-                            { role: 'system', content: systemPrompt },
-                            { role: 'user', content: actionContext }
-                        ],
-                        max_tokens: 30,
-                        temperature: 0.9,
-                    })
-                });
-                if (!resp.ok) throw new Error('AI API error');
-                const data = await resp.json();
-                const tag = data.choices?.[0]?.message?.content?.trim() || '';
-                if (tag && tag.length > 0 && tag.length < 80) return tag;
-                throw new Error('Empty or too long');
-            } catch (_) {
-                return null;
+            if (map[key]) {
+                G[map[key]] = clamp(G[map[key]] + val, 0, 100);
+                continue;
+            }
+            // direct property
+            if (key in G && typeof G[key] === 'number') {
+                G[key] = clamp(G[key] + val, 0, 100);
             }
         }
+        ['health', 'happiness', 'smarts', 'looks', 'athleticism', 'discipline', 'fertility', 'karma', 'willpower']
+        .forEach(s => { G[s] = clamp(G[s], 0, 100); });
+        G.money = Math.max(0, G.money);
+    }
 
-        async function getTagline(actionContext) {
-            // 80% static, 20% AI
-            if (Math.random() < 0.8) {
-                return pick(STATIC_TAGLINES);
-            }
-            // Try AI with a timeout
-            try {
-                const aiTag = await Promise.race([
-                    fetchAITagline(actionContext),
-                    new Promise((_, rej) => setTimeout(() => rej('timeout'), 2500))
-                ]);
-                if (aiTag) return aiTag;
-            } catch (_) { /* fall through */ }
+    // ---------- LOGGING ----------
+    function addLog(msg, highlight) {
+        const entry = { age: G.age, msg: msg, highlight: highlight || '' };
+        G.log.unshift(entry);
+        if (G.log.length > 200) G.log.pop();
+        renderLog();
+    }
+
+    // ---------- TAGLINE SYSTEM ----------
+    let taglineTimer = null;
+
+    function showTagline(text) {
+        const overlay = document.getElementById('floatOverlay');
+        const el = document.getElementById('taglineText');
+        const emojis = ['✨', '🎯', '💫', '🔥', '⚡', '🌈', '🎲', '💪', '🧠', '❤️', '💰', '🎭'];
+        const emoji = pick(emojis);
+        el.innerHTML = `<span class="emoji">${emoji}</span> ${text}`;
+        overlay.classList.add('show');
+        clearTimeout(taglineTimer);
+        taglineTimer = setTimeout(() => {
+            overlay.classList.remove('show');
+        }, 2800);
+    }
+
+    // AI Tagline via OpenRouter
+    async function fetchAITagline(actionContext) {
+        const apiKey = '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';
+        const url = 'https://openrouter.ai/api/v1/chat/completions';
+        const systemPrompt =
+            `You are a witty AI that generates sarcastic, funny, or clever taglines for a life simulation game. The game features aging, stats (happiness, health, smarts, looks), careers, education, relationships, crime, random events, and death. Generate a single short, witty tagline (under 10 words) based on the action context. Be humorous, dark, or sarcastic. Respond with ONLY the tagline text, no quotes.`;
+
+        try {
+            const resp = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
+                    'HTTP-Referer': 'https://onelife.local',
+                },
+                body: JSON.stringify({
+                    model: 'openai/gpt-3.5-turbo',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: actionContext }
+                    ],
+                    max_tokens: 30,
+                    temperature: 0.9,
+                })
+            });
+            if (!resp.ok) throw new Error('AI API error');
+            const data = await resp.json();
+            const tag = data.choices?.[0]?.message?.content?.trim() || '';
+            if (tag && tag.length > 0 && tag.length < 80) return tag;
+            throw new Error('Empty or too long');
+        } catch (_) {
+            return null;
+        }
+    }
+
+    async function getTagline(actionContext) {
+        // 80% static, 20% AI
+        if (Math.random() < 0.8) {
             return pick(STATIC_TAGLINES);
         }
+        try {
+            const aiTag = await Promise.race([
+                fetchAITagline(actionContext),
+                new Promise((_, rej) => setTimeout(() => rej('timeout'), 2500))
+            ]);
+            if (aiTag) return aiTag;
+        } catch (_) { /* fall through */ }
+        return pick(STATIC_TAGLINES);
+    }
 
-        // ---------- RANDOM EVENTS (10+) ----------
-        function triggerRandomEvent() {
-            if (!G.alive) return;
-            const events = [
-                { msg: 'You won the lottery! 🎉', effects: { money: rand(500, 5000), happiness: 10 } },
-                { msg: 'You caught a cold. 🤧', effects: { health: -rand(5, 20), happiness: -5 } },
-                { msg: 'You had a small accident. 🚑', effects: { health: -rand(5, 15), happiness: -8 } },
-                { msg: 'Happy Birthday! 🎂', effects: { happiness: 15 } },
-                { msg: 'You got a promotion! 📈', effects: { money: rand(200, 1200), happiness: 12 } },
-                { msg: 'You inherited some money. 💰', effects: { money: rand(300, 2000), happiness: 8 } },
-                { msg: 'Your house was broken into. 🚪', effects: { money: -rand(100, 600), happiness: -10 } },
-                { msg: 'You found $50 on the street! 💵', effects: { money: 50, happiness: 5 } },
-                { msg: 'You fell for a scam. 😤', effects: { money: -rand(100, 500), happiness: -12 } },
-                { msg: 'You helped a stranger. 🤝', effects: { karma: 10, happiness: 8 } },
-                { msg: 'You had a health scare. 😰', effects: { health: -rand(5, 15), happiness: -10 } },
-                { msg: 'You got a surprise bonus! 🎁', effects: { money: rand(100, 800), happiness: 10 } },
-                { msg: 'Your pet ran away. 🐾', effects: { happiness: -15 } },
-                { msg: 'You found a rare collectible. 🏆', effects: { money: rand(50, 400), happiness: 12 } },
-            ];
-            const evt = pick(events);
-            applyEffects(evt.effects);
-            addLog(evt.msg);
-            return evt.msg;
+    // ---------- RANDOM EVENTS (10+) ----------
+    function triggerRandomEvent() {
+        if (!G.alive) return;
+        const events = [
+            { msg: 'You won the lottery! 🎉', effects: { money: rand(500, 5000), happiness: 10 } },
+            { msg: 'You caught a cold. 🤧', effects: { health: -rand(5, 20), happiness: -5 } },
+            { msg: 'You had a small accident. 🚑', effects: { health: -rand(5, 15), happiness: -8 } },
+            { msg: 'Happy Birthday! 🎂', effects: { happiness: 15 } },
+            { msg: 'You got a promotion! 📈', effects: { money: rand(200, 1200), happiness: 12 } },
+            { msg: 'You inherited some money. 💰', effects: { money: rand(300, 2000), happiness: 8 } },
+            { msg: 'Your house was broken into. 🚪', effects: { money: -rand(100, 600), happiness: -10 } },
+            { msg: 'You found $50 on the street! 💵', effects: { money: 50, happiness: 5 } },
+            { msg: 'You fell for a scam. 😤', effects: { money: -rand(100, 500), happiness: -12 } },
+            { msg: 'You helped a stranger. 🤝', effects: { karma: 10, happiness: 8 } },
+            { msg: 'You had a health scare. 😰', effects: { health: -rand(5, 15), happiness: -10 } },
+            { msg: 'You got a surprise bonus! 🎁', effects: { money: rand(100, 800), happiness: 10 } },
+            { msg: 'Your pet ran away. 🐾', effects: { happiness: -15 } },
+            { msg: 'You found a rare collectible. 🏆', effects: { money: rand(50, 400), happiness: 12 } },
+        ];
+        const evt = pick(events);
+        applyEffects(evt.effects);
+        addLog(evt.msg);
+        return evt.msg;
+    }
+
+    // ---------- AGE UP ----------
+    function ageUp() {
+        if (!G.alive) return;
+
+        G.age += 1;
+        G.year += 1;
+
+        // Stats fluctuate slightly
+        applyEffects({
+            health: rand(-4, 4),
+            happiness: rand(-4, 4),
+            smarts: rand(-2, 3),
+            looks: rand(-3, 3),
+            athleticism: rand(-2, 2),
+            discipline: rand(-2, 2),
+            fertility: rand(-1, 1),
+            karma: rand(-1, 1),
+            willpower: rand(-2, 2),
+        });
+
+        // If employed, add income
+        if (G.job !== 'Unemployed' && !G.inPrison) {
+            const income = rand(50, 400) + (G.smarts * 2) + (G.discipline * 1.5);
+            applyEffects({ money: Math.floor(income) });
+            addLog(`Worked as ${G.job} and earned $${Math.floor(income)}`);
         }
 
-        // ---------- AGE UP ----------
-        function ageUp() {
-            if (!G.alive) return;
-
-            G.age += 1;
-            G.year += 1;
-
-            // Stats fluctuate slightly
-            applyEffects({
-                health: rand(-4, 4),
-                happiness: rand(-4, 4),
-                smarts: rand(-2, 3),
-                looks: rand(-3, 3),
-                athleticism: rand(-2, 2),
-                discipline: rand(-2, 2),
-                fertility: rand(-1, 1),
-                karma: rand(-1, 1),
-                willpower: rand(-2, 2),
-            });
-
-            // If employed, add income
-            if (G.job !== 'Unemployed' && !G.inPrison) {
-                const income = rand(50, 400) + (G.smarts * 2) + (G.discipline * 1.5);
-                applyEffects({ money: Math.floor(income) });
-                addLog(`Worked as ${G.job} and earned $${Math.floor(income)}`);
-            }
-
-            // If married, relationship effects
-            if (G.married && !G.inPrison) {
-                if (Math.random() < 0.4) {
-                    const delta = rand(-3, 6);
-                    applyEffects({ happiness: delta });
-                    if (delta > 0) addLog('Your marriage brought you joy ❤️');
-                    else if (delta < 0) addLog('Your marriage had a rough patch 💔');
-                }
-                // Child chance (implied)
-                if (G.age >= 20 && G.age <= 45 && G.married && Math.random() < 0.08 * (G.fertility / 50)) {
-                    addLog('You had a child! 👶');
-                    applyEffects({ happiness: 15, money: -200 });
-                }
-            }
-
-            // Random events (40% chance per year)
+        // If married, relationship effects
+        if (G.married && !G.inPrison) {
             if (Math.random() < 0.4) {
-                triggerRandomEvent();
+                const delta = rand(-3, 6);
+                applyEffects({ happiness: delta });
+                if (delta > 0) addLog('Your marriage brought you joy ❤️');
+                else if (delta < 0) addLog('Your marriage had a rough patch 💔');
             }
-
-            // Check death conditions
-            checkDeath();
-
-            // If in prison, serve a year automatically
-            if (G.inPrison && G.alive) {
-                G.prisonYears -= 1;
-                addLog(`Served a year in prison. ${G.prisonYears} years left.`);
-                if (G.prisonYears <= 0) {
-                    G.inPrison = false;
-                    G.prisonYears = 0;
-                    G.job = 'Unemployed';
-                    addLog('Released from prison! 🎉');
-                    applyEffects({ happiness: 10 });
-                }
+            // Child chance (implied)
+            if (G.age >= 20 && G.age <= 45 && G.married && Math.random() < 0.08 * (G.fertility / 50)) {
+                addLog('You had a child! 👶');
+                applyEffects({ happiness: 15, money: -200 });
             }
-
-            render();
-            // Tagline for age-up
-            const ctx = `Aged up to ${G.age} as a ${G.job}`;
-            getTagline(ctx).then(tag => showTagline(tag));
         }
 
-        // ---------- DEATH CHECK ----------
-        function checkDeath() {
-            if (!G.alive) return;
-            let dead = false;
-            let reason = '';
+        // Random events (40% chance per year)
+        if (Math.random() < 0.4) {
+            triggerRandomEvent();
+        }
 
-            // Health <= 0
-            if (G.health <= 0) {
+        // Check death
+        checkDeath();
+
+        // If in prison, serve a year automatically
+        if (G.inPrison && G.alive) {
+            G.prisonYears -= 1;
+            addLog(`Served a year in prison. ${G.prisonYears} years left.`);
+            if (G.prisonYears <= 0) {
+                G.inPrison = false;
+                G.prisonYears = 0;
+                G.job = 'Unemployed';
+                addLog('Released from prison! 🎉');
+                applyEffects({ happiness: 10 });
+            }
+        }
+
+        render();
+        getTagline(`Aged up to ${G.age} as a ${G.job}`).then(t => showTagline(t));
+        // Autosave
+        saveToLocalStorage();
+    }
+
+    // ---------- DEATH CHECK ----------
+    function checkDeath() {
+        if (!G.alive) return;
+        let dead = false;
+        let reason = '';
+
+        if (G.health <= 0) {
+            dead = true;
+            reason = 'Your health gave out. 💀';
+        }
+        if (G.age >= 70) {
+            const prob = Math.min(0.95, (G.age - 70) / 30);
+            if (Math.random() < prob) {
                 dead = true;
-                reason = 'Your health gave out. 💀';
-            }
-            // Old age (increasing probability after 70)
-            if (G.age >= 70) {
-                const prob = Math.min(0.95, (G.age - 70) / 30);
-                if (Math.random() < prob) {
-                    dead = true;
-                    reason = 'You died of old age. 🕊️';
-                }
-            }
-            // Random fatal accident (small chance)
-            if (!dead && Math.random() < 0.008) {
-                dead = true;
-                reason = 'A fatal accident took your life. 💔';
-            }
-            // Karma check: very low karma can be fatal
-            if (!dead && G.karma < 10 && Math.random() < 0.04) {
-                dead = true;
-                reason = 'Karma caught up with you. ⚖️';
-            }
-
-            if (dead) {
-                G.alive = false;
-                addLog(reason);
-                render();
-                // Show a special tagline
-                showTagline('💀 Game Over');
+                reason = 'You died of old age. 🕊️';
             }
         }
-
-        // ---------- PRISON ----------
-        function goToPrison(years) {
-            if (G.inPrison) return;
-            G.inPrison = true;
-            G.prisonYears = years;
-            G.job = 'Unemployed';
-            addLog(`Sent to prison for ${years} years. 🚔`);
-            applyEffects({ happiness: -20, money: -100 });
-            render();
+        if (!dead && Math.random() < 0.008) {
+            dead = true;
+            reason = 'A fatal accident took your life. 💔';
+        }
+        if (!dead && G.karma < 10 && Math.random() < 0.04) {
+            dead = true;
+            reason = 'Karma caught up with you. ⚖️';
         }
 
-        // ---------- ACTIONS (using applyEffects) ----------
-
-        // School
-        function study() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 5) { addLog('You are too young to study.'); return; }
-            const gain = rand(3, 10) + Math.floor(G.discipline / 10);
-            applyEffects({ smarts: gain, happiness: 2, money: -5 });
-            addLog(`Studied hard. Smarts +${gain} 🧠`);
-            getTagline('Studying').then(t => showTagline(t));
+        if (dead) {
+            G.alive = false;
+            addLog(reason);
             render();
+            showTagline('💀 Game Over');
+            saveToLocalStorage();
         }
+    }
 
-        function goToCollege() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 18) { addLog('You must be at least 18 to go to college.'); return; }
-            if (G.smarts < 60) { addLog('Your smarts are too low for college (need 60).'); return; }
-            if (G.education !== 'None') { addLog('You already have a degree or are in school.'); return; }
-            if (G.money < 500) { addLog('You need at least $500 for college tuition.'); return; }
-            applyEffects({ money: -500, smarts: 20, happiness: 10, discipline: 10 });
-            G.education = 'College';
-            addLog('Enrolled in college! 🎓');
-            getTagline('Going to college').then(t => showTagline(t));
-            render();
-        }
+    // ---------- PRISON ----------
+    function goToPrison(years) {
+        if (G.inPrison) return;
+        G.inPrison = true;
+        G.prisonYears = years;
+        G.job = 'Unemployed';
+        addLog(`Sent to prison for ${years} years. 🚔`);
+        applyEffects({ happiness: -20, money: -100 });
+        render();
+        saveToLocalStorage();
+    }
 
-        function dropOut() {
-            if (!G.alive || G.inPrison) return;
-            if (G.education === 'None') { addLog('You are not in school.'); return; }
-            G.education = 'None';
-            applyEffects({ happiness: -10 });
-            addLog('Dropped out of school. 😕');
-            getTagline('Dropping out').then(t => showTagline(t));
-            render();
-        }
+    // ---------- ACTIONS (using applyEffects) ----------
 
-        // Assets
-        function buyHouse() {
-            if (!G.alive || G.inPrison) return;
-            const cost = rand(2000, 8000);
-            if (G.money < cost) { addLog(`Not enough money. Need $${cost} for a house.`); return; }
-            applyEffects({ money: -cost, happiness: 15 });
-            G.houses = (G.houses || 0) + 1;
-            addLog(`Bought a house for $${cost}! 🏠`);
-            getTagline('Buying a house').then(t => showTagline(t));
-            render();
-        }
+    // School
+    function study() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 5) { addLog('You are too young to study.'); return; }
+        const gain = rand(3, 10) + Math.floor(G.discipline / 10);
+        applyEffects({ smarts: gain, happiness: 2, money: -5 });
+        addLog(`Studied hard. Smarts +${gain} 🧠`);
+        getTagline('Studying').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function buyCar() {
-            if (!G.alive || G.inPrison) return;
-            const cost = rand(500, 3000);
-            if (G.money < cost) { addLog(`Not enough money. Need $${cost} for a car.`); return; }
-            applyEffects({ money: -cost, happiness: 10, looks: 3 });
-            G.cars = (G.cars || 0) + 1;
-            addLog(`Bought a car for $${cost}! 🚗`);
-            getTagline('Buying a car').then(t => showTagline(t));
-            render();
-        }
+    function goToCollege() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 18) { addLog('You must be at least 18 to go to college.'); return; }
+        if (G.smarts < 60) { addLog('Your smarts are too low for college (need 60).'); return; }
+        if (G.education !== 'None') { addLog('You already have a degree or are in school.'); return; }
+        if (G.money < 500) { addLog('You need at least $500 for college tuition.'); return; }
+        applyEffects({ money: -500, smarts: 20, happiness: 10, discipline: 10 });
+        G.education = 'College';
+        addLog('Enrolled in college! 🎓');
+        getTagline('Going to college').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function viewAssets() {
-            if (!G.alive) return;
-            const h = G.houses || 0;
-            const c = G.cars || 0;
-            addLog(`Assets: ${h} house(s), ${c} car(s). 💎`);
-            getTagline('Checking assets').then(t => showTagline(t));
-            render();
-        }
+    function dropOut() {
+        if (!G.alive || G.inPrison) return;
+        if (G.education === 'None') { addLog('You are not in school.'); return; }
+        G.education = 'None';
+        applyEffects({ happiness: -10 });
+        addLog('Dropped out of school. 😕');
+        getTagline('Dropping out').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        // Relationships
-        function date() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 16) { addLog('You are too young to date.'); return; }
-            const cost = rand(20, 100);
-            if (G.money < cost) { addLog('You need money for a date.'); return; }
-            // Success depends on looks, smarts, and a bit of luck
-            const success = (G.looks * 0.4 + G.smarts * 0.3 + Math.random() * 30) > 40;
-            applyEffects({ money: -cost, happiness: success ? 12 : -8 });
-            if (success) {
-                addLog('Date went well! ❤️');
-                if (Math.random() < 0.3 && !G.married) {
-                    addLog('You found a partner! 💕');
-                    G.married = true;
-                    G.spouse = pick(FIRST_NAMES_M) + ' ' + pick(LAST_NAMES);
-                    applyEffects({ happiness: 15 });
-                }
-            } else {
-                addLog('Date was a disaster. 😬');
+    // Assets
+    function buyHouse() {
+        if (!G.alive || G.inPrison) return;
+        const cost = rand(2000, 8000);
+        if (G.money < cost) { addLog(`Not enough money. Need $${cost} for a house.`); return; }
+        applyEffects({ money: -cost, happiness: 15 });
+        G.houses = (G.houses || 0) + 1;
+        addLog(`Bought a house for $${cost}! 🏠`);
+        getTagline('Buying a house').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    function buyCar() {
+        if (!G.alive || G.inPrison) return;
+        const cost = rand(500, 3000);
+        if (G.money < cost) { addLog(`Not enough money. Need $${cost} for a car.`); return; }
+        applyEffects({ money: -cost, happiness: 10, looks: 3 });
+        G.cars = (G.cars || 0) + 1;
+        addLog(`Bought a car for $${cost}! 🚗`);
+        getTagline('Buying a car').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    function viewAssets() {
+        if (!G.alive) return;
+        const h = G.houses || 0;
+        const c = G.cars || 0;
+        addLog(`Assets: ${h} house(s), ${c} car(s). 💎`);
+        getTagline('Checking assets').then(t => showTagline(t));
+        render();
+    }
+
+    // Relationships
+    function date() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 16) { addLog('You are too young to date.'); return; }
+        const cost = rand(20, 100);
+        if (G.money < cost) { addLog('You need money for a date.'); return; }
+        const success = (G.looks * 0.4 + G.smarts * 0.3 + Math.random() * 30) > 40;
+        applyEffects({ money: -cost, happiness: success ? 12 : -8 });
+        if (success) {
+            addLog('Date went well! ❤️');
+            if (Math.random() < 0.3 && !G.married) {
+                addLog('You found a partner! 💕');
+                G.married = true;
+                G.spouse = pick(FIRST_NAMES_M) + ' ' + pick(LAST_NAMES);
+                applyEffects({ happiness: 15 });
             }
-            getTagline(success ? 'Successful date' : 'Awkward date').then(t => showTagline(t));
-            render();
+        } else {
+            addLog('Date was a disaster. 😬');
         }
+        getTagline(success ? 'Successful date' : 'Awkward date').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function marry() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 18) { addLog('You must be at least 18 to marry.'); return; }
-            if (G.married) { addLog('You are already married.'); return; }
-            if (G.money < 200) { addLog('You need at least $200 for a wedding.'); return; }
-            applyEffects({ money: -200, happiness: 20 });
-            G.married = true;
-            G.spouse = pick(FIRST_NAMES_M) + ' ' + pick(LAST_NAMES);
-            addLog(`You married ${G.spouse}! 💍`);
-            getTagline('Getting married').then(t => showTagline(t));
+    function marry() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 18) { addLog('You must be at least 18 to marry.'); return; }
+        if (G.married) { addLog('You are already married.'); return; }
+        if (G.money < 200) { addLog('You need at least $200 for a wedding.'); return; }
+        applyEffects({ money: -200, happiness: 20 });
+        G.married = true;
+        G.spouse = pick(FIRST_NAMES_M) + ' ' + pick(LAST_NAMES);
+        addLog(`You married ${G.spouse}! 💍`);
+        getTagline('Getting married').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    function divorce() {
+        if (!G.alive || G.inPrison) return;
+        if (!G.married) { addLog('You are not married.'); return; }
+        applyEffects({ happiness: -20, money: -150 });
+        G.married = false;
+        G.spouse = '';
+        addLog('You got divorced. 💔');
+        getTagline('Divorced').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    function socialize() {
+        if (!G.alive || G.inPrison) return;
+        const cost = rand(10, 40);
+        if (G.money < cost) { addLog('You need money to socialize.'); return; }
+        const gain = rand(5, 15);
+        applyEffects({ money: -cost, happiness: gain, smarts: rand(0, 3) });
+        addLog(`Socialized and had fun! +${gain} happiness 🎉`);
+        getTagline('Socializing').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    // Activities
+    function work() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 16) { addLog('You are too young to work.'); return; }
+        if (G.job === 'Unemployed') {
+            if (G.smarts < 30) { addLog('Your smarts are too low for a job (need 30).'); return; }
+            const jobs = ['Cashier', 'Janitor', 'Barista', 'Waiter', 'Retail Associate', 'Delivery Driver'];
+            if (G.smarts >= 50) jobs.push('Office Clerk', 'Sales Rep', 'Customer Service');
+            if (G.smarts >= 70) jobs.push('Software Engineer', 'Accountant', 'Manager', 'Analyst');
+            if (G.smarts >= 85) jobs.push('Doctor', 'Lawyer', 'Scientist', 'Architect');
+            G.job = pick(jobs);
+            addLog(`You got a job as a ${G.job}! 💼`);
+            applyEffects({ happiness: 8 });
+            getTagline(`Got a job as ${G.job}`).then(t => showTagline(t));
             render();
+            saveToLocalStorage();
+            return;
         }
+        const earn = rand(80, 350) + Math.floor(G.smarts * 1.2) + Math.floor(G.discipline * 0.8);
+        applyEffects({ money: earn, happiness: 3, discipline: 2 });
+        addLog(`Worked as ${G.job} and earned $${earn} 💵`);
+        getTagline(`Working as ${G.job}`).then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function divorce() {
-            if (!G.alive || G.inPrison) return;
-            if (!G.married) { addLog('You are not married.'); return; }
-            applyEffects({ happiness: -20, money: -150 });
-            G.married = false;
-            G.spouse = '';
-            addLog('You got divorced. 💔');
-            getTagline('Divorced').then(t => showTagline(t));
-            render();
+    function goToGym() {
+        if (!G.alive || G.inPrison) return;
+        const cost = rand(15, 50);
+        if (G.money < cost) { addLog('You need money for the gym.'); return; }
+        const healthGain = rand(3, 10);
+        const looksGain = rand(1, 5);
+        applyEffects({ money: -cost, health: healthGain, looks: looksGain, athleticism: rand(2, 8) });
+        addLog(`Went to the gym! Health +${healthGain}, Looks +${looksGain} 💪`);
+        getTagline('Going to the gym').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
+
+    function gamble() {
+        if (!G.alive || G.inPrison) return;
+        const bet = rand(20, 200);
+        if (G.money < bet) { addLog(`You need $${bet} to gamble.`); return; }
+        const win = Math.random() < 0.45;
+        const amount = win ? bet * (1 + randf(0.5, 2.5)) : -bet;
+        applyEffects({ money: Math.round(amount), happiness: win ? 12 : -8 });
+        if (win) {
+            addLog(`You won $${Math.round(amount)} gambling! 🎰`);
+        } else {
+            addLog(`You lost $${bet} gambling. 😤`);
         }
+        getTagline(win ? 'Gambling win!' : 'Gambling loss').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function socialize() {
-            if (!G.alive || G.inPrison) return;
-            const cost = rand(10, 40);
-            if (G.money < cost) { addLog('You need money to socialize.'); return; }
-            const gain = rand(5, 15);
-            applyEffects({ money: -cost, happiness: gain, smarts: rand(0, 3) });
-            addLog(`Socialized and had fun! +${gain} happiness 🎉`);
-            getTagline('Socializing').then(t => showTagline(t));
-            render();
+    // Crime
+    function commitTheft() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 14) { addLog('You are too young to commit a crime.'); return; }
+        const success = (G.smarts * 0.3 + G.athleticism * 0.2 + Math.random() * 40) > 35;
+        if (success) {
+            const loot = rand(50, 400);
+            applyEffects({ money: loot, karma: -5, happiness: 5 });
+            addLog(`Theft successful! Stole $${loot}. 🦹`);
+            if (Math.random() < 0.2) goToPrison(rand(1, 3));
+        } else {
+            applyEffects({ happiness: -10, karma: -3 });
+            addLog('Theft failed! 😰');
+            if (Math.random() < 0.5) goToPrison(rand(1, 2));
         }
+        getTagline('Committing theft').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        // Activities
-        function work() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 16) { addLog('You are too young to work.'); return; }
-            if (G.job === 'Unemployed') {
-                // Try to get a job
-                if (G.smarts < 30) { addLog('Your smarts are too low for a job (need 30).'); return; }
-                const jobs = ['Cashier', 'Janitor', 'Barista', 'Waiter', 'Retail Associate', 'Delivery Driver'];
-                if (G.smarts >= 50) jobs.push('Office Clerk', 'Sales Rep', 'Customer Service');
-                if (G.smarts >= 70) jobs.push('Software Engineer', 'Accountant', 'Manager', 'Analyst');
-                if (G.smarts >= 85) jobs.push('Doctor', 'Lawyer', 'Scientist', 'Architect');
-                G.job = pick(jobs);
-                addLog(`You got a job as a ${G.job}! 💼`);
-                applyEffects({ happiness: 8 });
-                getTagline(`Got a job as ${G.job}`).then(t => showTagline(t));
-                render();
-                return;
-            }
-            // Already employed: work for money
-            const earn = rand(80, 350) + Math.floor(G.smarts * 1.2) + Math.floor(G.discipline * 0.8);
-            applyEffects({ money: earn, happiness: 3, discipline: 2 });
-            addLog(`Worked as ${G.job} and earned $${earn} 💵`);
-            getTagline(`Working as ${G.job}`).then(t => showTagline(t));
-            render();
+    function commitRobbery() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 16) { addLog('You are too young.'); return; }
+        const success = (G.smarts * 0.25 + G.athleticism * 0.35 + Math.random() * 35) > 40;
+        if (success) {
+            const loot = rand(200, 1200);
+            applyEffects({ money: loot, karma: -10, happiness: 8 });
+            addLog(`Robbery successful! Stole $${loot}. 🔫`);
+            if (Math.random() < 0.35) goToPrison(rand(2, 5));
+        } else {
+            applyEffects({ happiness: -15, karma: -5 });
+            addLog('Robbery failed! 🚨');
+            if (Math.random() < 0.7) goToPrison(rand(2, 4));
         }
+        getTagline('Committing robbery').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function goToGym() {
-            if (!G.alive || G.inPrison) return;
-            const cost = rand(15, 50);
-            if (G.money < cost) { addLog('You need money for the gym.'); return; }
-            const healthGain = rand(3, 10);
-            const looksGain = rand(1, 5);
-            applyEffects({ money: -cost, health: healthGain, looks: looksGain, athleticism: rand(2, 8) });
-            addLog(`Went to the gym! Health +${healthGain}, Looks +${looksGain} 💪`);
-            getTagline('Going to the gym').then(t => showTagline(t));
-            render();
+    function commitFraud() {
+        if (!G.alive || G.inPrison) return;
+        if (G.age < 18) { addLog('You are too young.'); return; }
+        if (G.smarts < 40) { addLog('Your smarts are too low for fraud (need 40).'); return; }
+        const success = (G.smarts * 0.5 + G.discipline * 0.2 + Math.random() * 30) > 45;
+        if (success) {
+            const loot = rand(300, 2000);
+            applyEffects({ money: loot, karma: -12, happiness: 6 });
+            addLog(`Fraud successful! Made $${loot}. 💳`);
+            if (Math.random() < 0.3) goToPrison(rand(2, 6));
+        } else {
+            applyEffects({ happiness: -15, karma: -8 });
+            addLog('Fraud failed! 👮');
+            if (Math.random() < 0.6) goToPrison(rand(2, 5));
         }
+        getTagline('Committing fraud').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function gamble() {
-            if (!G.alive || G.inPrison) return;
-            const bet = rand(20, 200);
-            if (G.money < bet) { addLog(`You need $${bet} to gamble.`); return; }
-            const win = Math.random() < 0.45;
-            const amount = win ? bet * (1 + randf(0.5, 2.5)) : -bet;
-            applyEffects({ money: Math.round(amount), happiness: win ? 12 : -8 });
-            if (win) {
-                addLog(`You won $${Math.round(amount)} gambling! 🎰`);
-            } else {
-                addLog(`You lost $${bet} gambling. 😤`);
-            }
-            getTagline(win ? 'Gambling win!' : 'Gambling loss').then(t => showTagline(t));
-            render();
-        }
+    // Heirloom
+    function createHeirloom() {
+        if (!G.alive || G.inPrison) return;
+        const cost = rand(100, 500);
+        if (G.money < cost) { addLog(`You need $${cost} to create an heirloom.`); return; }
+        applyEffects({ money: -cost, happiness: 5 });
+        const names = ['Gold Watch', 'Diamond Ring', 'Antique Vase', 'Family Sword', 'Pocket Watch', 'Silver Locket',
+            'Ruby Brooch', 'Emerald Necklace'
+        ];
+        const heirloom = pick(names);
+        G.heirlooms = G.heirlooms || [];
+        G.heirlooms.push({ name: heirloom, value: rand(200, 800) });
+        addLog(`Created heirloom: ${heirloom}! 💎`);
+        getTagline('Creating an heirloom').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        // Crime actions
-        function commitTheft() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 14) { addLog('You are too young to commit a crime.'); return; }
-            const success = (G.smarts * 0.3 + G.athleticism * 0.2 + Math.random() * 40) > 35;
-            if (success) {
-                const loot = rand(50, 400);
-                applyEffects({ money: loot, karma: -5, happiness: 5 });
-                addLog(`Theft successful! Stole $${loot}. 🦹`);
-                if (Math.random() < 0.2) goToPrison(rand(1, 3));
-            } else {
-                applyEffects({ happiness: -10, karma: -3 });
-                addLog('Theft failed! 😰');
-                if (Math.random() < 0.5) goToPrison(rand(1, 2));
-            }
-            getTagline('Committing theft').then(t => showTagline(t));
-            render();
-        }
+    function viewHeirlooms() {
+        if (!G.alive) return;
+        const h = G.heirlooms || [];
+        if (h.length === 0) { addLog('You have no heirlooms.'); return; }
+        const list = h.map((x, i) => `${i+1}. ${x.name} ($${x.value})`).join('; ');
+        addLog(`Heirlooms: ${list}`);
+        getTagline('Viewing heirlooms').then(t => showTagline(t));
+        render();
+    }
 
-        function commitRobbery() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 16) { addLog('You are too young.'); return; }
-            const success = (G.smarts * 0.25 + G.athleticism * 0.35 + Math.random() * 35) > 40;
-            if (success) {
-                const loot = rand(200, 1200);
-                applyEffects({ money: loot, karma: -10, happiness: 8 });
-                addLog(`Robbery successful! Stole $${loot}. 🔫`);
-                if (Math.random() < 0.35) goToPrison(rand(2, 5));
-            } else {
-                applyEffects({ happiness: -15, karma: -5 });
-                addLog('Robbery failed! 🚨');
-                if (Math.random() < 0.7) goToPrison(rand(2, 4));
-            }
-            getTagline('Committing robbery').then(t => showTagline(t));
-            render();
-        }
+    function sellHeirloom() {
+        if (!G.alive || G.inPrison) return;
+        const h = G.heirlooms || [];
+        if (h.length === 0) { addLog('You have no heirlooms to sell.'); return; }
+        const idx = rand(0, h.length - 1);
+        const item = h[idx];
+        applyEffects({ money: item.value, happiness: 3 });
+        h.splice(idx, 1);
+        addLog(`Sold ${item.name} for $${item.value}. 💰`);
+        getTagline('Selling an heirloom').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function commitFraud() {
-            if (!G.alive || G.inPrison) return;
-            if (G.age < 18) { addLog('You are too young.'); return; }
-            if (G.smarts < 40) { addLog('Your smarts are too low for fraud (need 40).'); return; }
-            const success = (G.smarts * 0.5 + G.discipline * 0.2 + Math.random() * 30) > 45;
-            if (success) {
-                const loot = rand(300, 2000);
-                applyEffects({ money: loot, karma: -12, happiness: 6 });
-                addLog(`Fraud successful! Made $${loot}. 💳`);
-                if (Math.random() < 0.3) goToPrison(rand(2, 6));
-            } else {
-                applyEffects({ happiness: -15, karma: -8 });
-                addLog('Fraud failed! 👮');
-                if (Math.random() < 0.6) goToPrison(rand(2, 5));
-            }
-            getTagline('Committing fraud').then(t => showTagline(t));
-            render();
-        }
+    // BitPass
+    function checkBitPass() {
+        if (!G.alive) return;
+        const bp = G.bitPass || false;
+        const bal = G.bitPassBalance || 0;
+        addLog(`BitPass: ${bp ? 'Active' : 'Inactive'}, Balance: $${bal} 🎫`);
+        getTagline('Checking BitPass').then(t => showTagline(t));
+        render();
+    }
 
-        // Heirloom
-        function createHeirloom() {
-            if (!G.alive || G.inPrison) return;
-            const cost = rand(100, 500);
-            if (G.money < cost) { addLog(`You need $${cost} to create an heirloom.`); return; }
-            applyEffects({ money: -cost, happiness: 5 });
-            const names = ['Gold Watch', 'Diamond Ring', 'Antique Vase', 'Family Sword', 'Pocket Watch', 'Silver Locket',
-                'Ruby Brooch', 'Emerald Necklace'
-            ];
-            const heirloom = pick(names);
-            G.heirlooms = G.heirlooms || [];
-            G.heirlooms.push({ name: heirloom, value: rand(200, 800) });
-            addLog(`Created heirloom: ${heirloom}! 💎`);
-            getTagline('Creating an heirloom').then(t => showTagline(t));
-            render();
-        }
+    function buyBitPass() {
+        if (!G.alive || G.inPrison) return;
+        const cost = 500;
+        if (G.money < cost) { addLog(`You need $${cost} to buy BitPass.`); return; }
+        applyEffects({ money: -cost, happiness: 8 });
+        G.bitPass = true;
+        G.bitPassBalance = (G.bitPassBalance || 0) + 100;
+        addLog('Purchased BitPass! Premium features unlocked 🎫');
+        getTagline('Buying BitPass').then(t => showTagline(t));
+        render();
+        saveToLocalStorage();
+    }
 
-        function viewHeirlooms() {
-            if (!G.alive) return;
-            const h = G.heirlooms || [];
-            if (h.length === 0) { addLog('You have no heirlooms.'); return; }
-            const list = h.map((x, i) => `${i+1}. ${x.name} ($${x.value})`).join('; ');
-            addLog(`Heirlooms: ${list}`);
-            getTagline('Viewing heirlooms').then(t => showTagline(t));
-            render();
-        }
+    // ---------- MENU CONFIG (extensible) ----------
+    const menuConfig = [{
+        id: 'heirloom',
+        label: 'New Heirloom!',
+        icon: '💎',
+        subOptions: [
+            { label: 'Create Heirloom', action: createHeirloom, cssClass: 'heirloom', icon: '🪄' },
+            { label: 'View Heirlooms', action: viewHeirlooms, cssClass: 'heirloom', icon: '📜' },
+            { label: 'Sell Heirloom', action: sellHeirloom, cssClass: 'heirloom', icon: '💰' },
+        ]
+    }, {
+        id: 'bitpass',
+        label: 'BitPass',
+        icon: '🎫',
+        subOptions: [
+            { label: 'Check Balance', action: checkBitPass, cssClass: 'bitpass', icon: '💳' },
+            { label: 'Buy BitPass', action: buyBitPass, cssClass: 'bitpass', icon: '⭐' },
+        ]
+    }, {
+        id: 'school',
+        label: 'School',
+        icon: '📚',
+        subOptions: [
+            { label: 'Study', action: study, cssClass: 'school', icon: '📖' },
+            { label: 'Go to College', action: goToCollege, cssClass: 'school', icon: '🎓' },
+            { label: 'Drop Out', action: dropOut, cssClass: 'school', icon: '🚪' },
+        ]
+    }, {
+        id: 'assets',
+        label: 'Assets',
+        icon: '🏠',
+        subOptions: [
+            { label: 'Buy House', action: buyHouse, cssClass: 'assets', icon: '🏡' },
+            { label: 'Buy Car', action: buyCar, cssClass: 'assets', icon: '🚗' },
+            { label: 'View Assets', action: viewAssets, cssClass: 'assets', icon: '📊' },
+        ]
+    }, {
+        id: 'age',
+        label: 'Age',
+        icon: '📅',
+        subOptions: [
+            { label: 'Age Up!', action: ageUp, cssClass: 'age', icon: '⬆️' },
+        ]
+    }, {
+        id: 'relationships',
+        label: 'Relationships',
+        icon: '❤️',
+        subOptions: [
+            { label: 'Date', action: date, cssClass: 'relationship', icon: '🌹' },
+            { label: 'Marry', action: marry, cssClass: 'relationship', icon: '💍' },
+            { label: 'Divorce', action: divorce, cssClass: 'relationship', icon: '💔' },
+            { label: 'Socialize', action: socialize, cssClass: 'relationship', icon: '🎉' },
+        ]
+    }, {
+        id: 'activities',
+        label: 'Activities',
+        icon: '🎮',
+        subOptions: [
+            { label: 'Work', action: work, cssClass: 'job', icon: '💼' },
+            { label: 'Go to Gym', action: goToGym, cssClass: 'activity', icon: '🏋️' },
+            { label: 'Gamble', action: gamble, cssClass: 'activity', icon: '🎰' },
+            { label: 'Theft', action: commitTheft, cssClass: 'crime', icon: '🦹' },
+            { label: 'Robbery', action: commitRobbery, cssClass: 'crime', icon: '🔫' },
+            { label: 'Fraud', action: commitFraud, cssClass: 'crime', icon: '💳' },
+        ]
+    }];
 
-        function sellHeirloom() {
-            if (!G.alive || G.inPrison) return;
-            const h = G.heirlooms || [];
-            if (h.length === 0) { addLog('You have no heirlooms to sell.'); return; }
-            const idx = rand(0, h.length - 1);
-            const item = h[idx];
-            applyEffects({ money: item.value, happiness: 3 });
-            h.splice(idx, 1);
-            addLog(`Sold ${item.name} for $${item.value}. 💰`);
-            getTagline('Selling an heirloom').then(t => showTagline(t));
-            render();
-        }
+    // ---------- UI RENDERING ----------
+    let activeCategory = 'age';
 
-        // BitPass
-        function checkBitPass() {
-            if (!G.alive) return;
-            const bp = G.bitPass || false;
-            const bal = G.bitPassBalance || 0;
-            addLog(`BitPass: ${bp ? 'Active' : 'Inactive'}, Balance: $${bal} 🎫`);
-            getTagline('Checking BitPass').then(t => showTagline(t));
-            render();
-        }
-
-        function buyBitPass() {
-            if (!G.alive || G.inPrison) return;
-            const cost = 500;
-            if (G.money < cost) { addLog(`You need $${cost} to buy BitPass.`); return; }
-            applyEffects({ money: -cost, happiness: 8 });
-            G.bitPass = true;
-            G.bitPassBalance = (G.bitPassBalance || 0) + 100;
-            addLog('Purchased BitPass! Premium features unlocked 🎫');
-            getTagline('Buying BitPass').then(t => showTagline(t));
-            render();
-        }
-
-        // ---------- MENU CONFIG (extensible) ----------
-        const menuConfig = [{
-            id: 'heirloom',
-            label: 'New Heirloom!',
-            icon: '💎',
-            subOptions: [
-                { label: 'Create Heirloom', action: createHeirloom, cssClass: 'heirloom', icon: '🪄' },
-                { label: 'View Heirlooms', action: viewHeirlooms, cssClass: 'heirloom', icon: '📜' },
-                { label: 'Sell Heirloom', action: sellHeirloom, cssClass: 'heirloom', icon: '💰' },
-            ]
-        }, {
-            id: 'bitpass',
-            label: 'BitPass',
-            icon: '🎫',
-            subOptions: [
-                { label: 'Check Balance', action: checkBitPass, cssClass: 'bitpass', icon: '💳' },
-                { label: 'Buy BitPass', action: buyBitPass, cssClass: 'bitpass', icon: '⭐' },
-            ]
-        }, {
-            id: 'school',
-            label: 'School',
-            icon: '📚',
-            subOptions: [
-                { label: 'Study', action: study, cssClass: 'school', icon: '📖' },
-                { label: 'Go to College', action: goToCollege, cssClass: 'school', icon: '🎓' },
-                { label: 'Drop Out', action: dropOut, cssClass: 'school', icon: '🚪' },
-            ]
-        }, {
-            id: 'assets',
-            label: 'Assets',
-            icon: '🏠',
-            subOptions: [
-                { label: 'Buy House', action: buyHouse, cssClass: 'assets', icon: '🏡' },
-                { label: 'Buy Car', action: buyCar, cssClass: 'assets', icon: '🚗' },
-                { label: 'View Assets', action: viewAssets, cssClass: 'assets', icon: '📊' },
-            ]
-        }, {
-            id: 'age',
-            label: 'Age',
-            icon: '📅',
-            subOptions: [
-                { label: 'Age Up!', action: ageUp, cssClass: 'age', icon: '⬆️' },
-            ]
-        }, {
-            id: 'relationships',
-            label: 'Relationships',
-            icon: '❤️',
-            subOptions: [
-                { label: 'Date', action: date, cssClass: 'relationship', icon: '🌹' },
-                { label: 'Marry', action: marry, cssClass: 'relationship', icon: '💍' },
-                { label: 'Divorce', action: divorce, cssClass: 'relationship', icon: '💔' },
-                { label: 'Socialize', action: socialize, cssClass: 'relationship', icon: '🎉' },
-            ]
-        }, {
-            id: 'activities',
-            label: 'Activities',
-            icon: '🎮',
-            subOptions: [
-                { label: 'Work', action: work, cssClass: 'job', icon: '💼' },
-                { label: 'Go to Gym', action: goToGym, cssClass: 'activity', icon: '🏋️' },
-                { label: 'Gamble', action: gamble, cssClass: 'activity', icon: '🎰' },
-                { label: 'Theft', action: commitTheft, cssClass: 'crime', icon: '🦹' },
-                { label: 'Robbery', action: commitRobbery, cssClass: 'crime', icon: '🔫' },
-                { label: 'Fraud', action: commitFraud, cssClass: 'crime', icon: '💳' },
-            ]
-        }];
-
-        // ---------- UI RENDERING ----------
-        let activeCategory = 'age';
-
-        function renderSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.innerHTML = '';
-            menuConfig.forEach(cat => {
-                const div = document.createElement('div');
-                div.className = 'cat-item' + (cat.id === activeCategory ? ' active' : '');
-                div.innerHTML = `<span class="icon">${cat.icon}</span> ${cat.label}`;
-                div.dataset.id = cat.id;
-                div.addEventListener('click', () => {
-                    activeCategory = cat.id;
-                    renderSidebar();
-                    renderContent();
-                });
-                sidebar.appendChild(div);
+    function renderSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.innerHTML = '';
+        menuConfig.forEach(cat => {
+            const div = document.createElement('div');
+            div.className = 'cat-item' + (cat.id === activeCategory ? ' active' : '');
+            div.innerHTML = `<span class="icon">${cat.icon}</span> ${cat.label}`;
+            div.dataset.id = cat.id;
+            div.addEventListener('click', () => {
+                activeCategory = cat.id;
+                renderSidebar();
+                renderContent();
             });
-        }
+            sidebar.appendChild(div);
+        });
+    }
 
-        function renderContent() {
-            const cat = menuConfig.find(c => c.id === activeCategory);
-            const title = document.getElementById('sectionTitle');
-            const grid = document.getElementById('actionGrid');
-            if (!cat) {
-                title.textContent = '—';
-                grid.innerHTML = '';
-                return;
-            }
-            title.textContent = cat.label + ' — choose an action';
-
-            // In prison: only show "Serve a Year" (Age Up) and maybe view-only
-            if (G.inPrison && cat.id !== 'age') {
-                // Show a special message
-                grid.innerHTML =
-                    `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#6a8aaa;">🔒 You are in prison. Only "Age Up" is available.</div>`;
-                return;
-            }
-            if (!G.alive && cat.id !== 'age') {
-                grid.innerHTML =
-                    `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#6a8aaa;">💀 You are dead. Click "Age Up" to restart.</div>`;
-                return;
-            }
-
+    function renderContent() {
+        const cat = menuConfig.find(c => c.id === activeCategory);
+        const title = document.getElementById('sectionTitle');
+        const grid = document.getElementById('actionGrid');
+        if (!cat) {
+            title.textContent = '—';
             grid.innerHTML = '';
-            cat.subOptions.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'action-btn ' + (opt.cssClass || '');
-                btn.innerHTML = `<span class="icon">${opt.icon || '⚡'}</span> ${opt.label}`;
-                // Add a tiny note for some actions
-                if (opt.label === 'Age Up!' && G.inPrison) {
-                    btn.innerHTML += `<span class="sub">Serve a year</span>`;
-                } else if (opt.label === 'Age Up!' && !G.alive) {
-                    btn.innerHTML += `<span class="sub">Restart</span>`;
-                }
-                btn.addEventListener('click', () => {
-                    if (!G.alive && opt.label !== 'Age Up!') {
-                        addLog('You are dead. Start a new life.');
-                        return;
-                    }
-                    if (G.inPrison && opt.label !== 'Age Up!') {
-                        addLog('You are in prison. Only "Age Up" is available.');
-                        return;
-                    }
-                    opt.action();
-                });
-                grid.appendChild(btn);
-            });
+            return;
+        }
+        title.textContent = cat.label + ' — choose an action';
+
+        if (G.inPrison && cat.id !== 'age') {
+            grid.innerHTML =
+                `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#6a8aaa;">🔒 You are in prison. Only "Age Up" is available.</div>`;
+            return;
+        }
+        if (!G.alive && cat.id !== 'age') {
+            grid.innerHTML =
+                `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#6a8aaa;">💀 You are dead. Click "Age Up" to restart.</div>`;
+            return;
         }
 
-        function renderCharCard() {
-            document.getElementById('charName').textContent = G.name || '—';
-            document.getElementById('charGender').textContent = G.gender || '—';
-            document.getElementById('charCountry').textContent = G.country || '—';
-            document.getElementById('happinessBar').style.width = G.happiness + '%';
-            document.getElementById('happinessVal').textContent = G.happiness;
-            document.getElementById('healthBar').style.width = G.health + '%';
-            document.getElementById('healthVal').textContent = G.health;
-            document.getElementById('smartsBar').style.width = G.smarts + '%';
-            document.getElementById('smartsVal').textContent = G.smarts;
-            document.getElementById('looksBar').style.width = G.looks + '%';
-            document.getElementById('looksVal').textContent = G.looks;
-        }
-
-        function renderAgeMoney() {
-            document.getElementById('ageDisplay').textContent = `Age: ${G.age}`;
-            document.getElementById('moneyDisplay').textContent = `💰 $${Math.floor(G.money)}`;
-            document.getElementById('jobDisplay').textContent = G.job || 'Unemployed';
-            document.getElementById('eduDisplay').textContent = `Education: ${G.education || 'None'}`;
-            const badge = document.getElementById('statusBadge');
-            if (!G.alive) {
-                badge.innerHTML = `<span class="dead-badge">💀 Dead</span>`;
-            } else if (G.inPrison) {
-                badge.innerHTML = `<span class="prison-badge">🔒 Prison (${G.prisonYears}y)</span>`;
-            } else {
-                badge.innerHTML = `<span class="alive-badge">✅ Alive</span>`;
+        grid.innerHTML = '';
+        cat.subOptions.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'action-btn ' + (opt.cssClass || '');
+            btn.innerHTML = `<span class="icon">${opt.icon || '⚡'}</span> ${opt.label}`;
+            if (opt.label === 'Age Up!' && G.inPrison) {
+                btn.innerHTML += `<span class="sub">Serve a year</span>`;
+            } else if (opt.label === 'Age Up!' && !G.alive) {
+                btn.innerHTML += `<span class="sub">Restart</span>`;
             }
-        }
-
-        function renderHiddenTraits() {
-            const grid = document.getElementById('traitsGrid');
-            const traits = [
-                { key: 'athleticism', label: '🏃 Athleticism', val: G.athleticism },
-                { key: 'discipline', label: '🎯 Discipline', val: G.discipline },
-                { key: 'fertility', label: '👶 Fertility', val: G.fertility },
-                { key: 'karma', label: '⚖️ Karma', val: G.karma },
-                { key: 'sexuality', label: '🌈 Sexuality', val: G.sexuality },
-                { key: 'willpower', label: '💪 Willpower', val: G.willpower },
-            ];
-            grid.innerHTML = '';
-            traits.forEach(t => {
-                const div = document.createElement('div');
-                div.className = 'trait';
-                if (t.key === 'sexuality') {
-                    div.innerHTML = `${t.label} <span class="val">${t.val}</span>`;
-                } else {
-                    const pct = typeof t.val === 'number' ? t.val : 0;
-                    div.innerHTML =
-                        `${t.label} <span class="bar-bg"><span class="bar-fill" style="width:${pct}%"></span></span> <span class="val">${pct}</span>`;
+            btn.addEventListener('click', () => {
+                if (!G.alive && opt.label !== 'Age Up!') {
+                    addLog('You are dead. Start a new life.');
+                    return;
                 }
-                grid.appendChild(div);
+                if (G.inPrison && opt.label !== 'Age Up!') {
+                    addLog('You are in prison. Only "Age Up" is available.');
+                    return;
+                }
+                opt.action();
             });
-        }
+            grid.appendChild(btn);
+        });
+    }
 
-        function renderLog() {
-            const area = document.getElementById('logArea');
-            area.innerHTML = '';
-            const entries = G.log.slice(0, 50);
-            entries.forEach(e => {
-                const div = document.createElement('div');
-                div.className = 'log-entry';
+    function renderCharCard() {
+        document.getElementById('charName').textContent = G.name || '—';
+        document.getElementById('charGender').textContent = G.gender || '—';
+        document.getElementById('charCountry').textContent = G.country || '—';
+        document.getElementById('happinessBar').style.width = G.happiness + '%';
+        document.getElementById('happinessVal').textContent = G.happiness;
+        document.getElementById('healthBar').style.width = G.health + '%';
+        document.getElementById('healthVal').textContent = G.health;
+        document.getElementById('smartsBar').style.width = G.smarts + '%';
+        document.getElementById('smartsVal').textContent = G.smarts;
+        document.getElementById('looksBar').style.width = G.looks + '%';
+        document.getElementById('looksVal').textContent = G.looks;
+    }
+
+    function renderAgeMoney() {
+        document.getElementById('ageDisplay').textContent = `Age: ${G.age}`;
+        document.getElementById('moneyDisplay').textContent = `💰 $${Math.floor(G.money)}`;
+        document.getElementById('jobDisplay').textContent = G.job || 'Unemployed';
+        document.getElementById('eduDisplay').textContent = `Education: ${G.education || 'None'}`;
+        const badge = document.getElementById('statusBadge');
+        if (!G.alive) {
+            badge.innerHTML = `<span class="dead-badge">💀 Dead</span>`;
+        } else if (G.inPrison) {
+            badge.innerHTML = `<span class="prison-badge">🔒 Prison (${G.prisonYears}y)</span>`;
+        } else {
+            badge.innerHTML = `<span class="alive-badge">✅ Alive</span>`;
+        }
+    }
+
+    function renderHiddenTraits() {
+        const grid = document.getElementById('traitsGrid');
+        const traits = [
+            { key: 'athleticism', label: '🏃 Athleticism', val: G.athleticism },
+            { key: 'discipline', label: '🎯 Discipline', val: G.discipline },
+            { key: 'fertility', label: '👶 Fertility', val: G.fertility },
+            { key: 'karma', label: '⚖️ Karma', val: G.karma },
+            { key: 'sexuality', label: '🌈 Sexuality', val: G.sexuality },
+            { key: 'willpower', label: '💪 Willpower', val: G.willpower },
+        ];
+        grid.innerHTML = '';
+        traits.forEach(t => {
+            const div = document.createElement('div');
+            div.className = 'trait';
+            if (t.key === 'sexuality') {
+                div.innerHTML = `${t.label} <span class="val">${t.val}</span>`;
+            } else {
+                const pct = typeof t.val === 'number' ? t.val : 0;
                 div.innerHTML =
-                    `<span class="age-tag">[${e.age}]</span><span class="msg">${e.msg} ${e.highlight ? '<span class="highlight">'+e.highlight+'</span>' : ''}</span>`;
-                area.appendChild(div);
-            });
-            if (entries.length === 0) {
-                area.innerHTML = '<div class="log-entry" style="color:#4a6a8a;padding:4px 0;">✨ Your life story begins here...</div>';
+                    `${t.label} <span class="bar-bg"><span class="bar-fill" style="width:${pct}%"></span></span> <span class="val">${pct}</span>`;
             }
+            grid.appendChild(div);
+        });
+    }
+
+    function renderLog() {
+        const area = document.getElementById('logArea');
+        area.innerHTML = '';
+        const entries = G.log.slice(0, 50);
+        entries.forEach(e => {
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML =
+                `<span class="age-tag">[${e.age}]</span><span class="msg">${e.msg} ${e.highlight ? '<span class="highlight">'+e.highlight+'</span>' : ''}</span>`;
+            area.appendChild(div);
+        });
+        if (entries.length === 0) {
+            area.innerHTML = '<div class="log-entry" style="color:#4a6a8a;padding:4px 0;">✨ Your life story begins here...</div>';
         }
+    }
 
-        function render() {
-            renderCharCard();
-            renderAgeMoney();
-            renderHiddenTraits();
-            renderLog();
-            renderSidebar();
-            renderContent();
-        }
+    function render() {
+        renderCharCard();
+        renderAgeMoney();
+        renderHiddenTraits();
+        renderLog();
+        renderSidebar();
+        renderContent();
+    }
 
-        // ---------- NEW LIFE ----------
-        function newLife() {
-            G = defaultState();
-            G.name = randomName(G.gender);
-            G.gender = randomGender();
-            // Re-generate name based on gender
-            G.name = randomName(G.gender);
-            G.country = randomCountry();
-            G.health = rand(40, 90);
-            G.happiness = rand(40, 90);
-            G.smarts = rand(30, 85);
-            G.looks = rand(30, 85);
-            G.athleticism = rand(0, 100);
-            G.discipline = rand(0, 100);
-            G.fertility = rand(0, 100);
-            G.karma = rand(0, 100);
-            G.sexuality = randomSexuality();
-            G.willpower = rand(0, 100);
-            G.money = rand(100, 2000);
-            G.job = 'Unemployed';
-            G.education = 'None';
-            G.married = false;
-            G.spouse = '';
-            G.inPrison = false;
-            G.prisonYears = 0;
-            G.alive = true;
-            G.heirlooms = [];
-            G.bitPass = false;
-            G.bitPassBalance = 0;
-            G.houses = 0;
-            G.cars = 0;
-            G.log = [];
-            G.year = 0;
+    // ---------- NEW LIFE ----------
+    function newLife() {
+        G = defaultState();
+        G.gender = randomGender();
+        G.name = randomName(G.gender);
+        G.country = randomCountry();
+        G.health = rand(40, 90);
+        G.happiness = rand(40, 90);
+        G.smarts = rand(30, 85);
+        G.looks = rand(30, 85);
+        G.athleticism = rand(0, 100);
+        G.discipline = rand(0, 100);
+        G.fertility = rand(0, 100);
+        G.karma = rand(0, 100);
+        G.sexuality = randomSexuality();
+        G.willpower = rand(0, 100);
+        G.money = rand(100, 2000);
+        G.job = 'Unemployed';
+        G.education = 'None';
+        G.married = false;
+        G.spouse = '';
+        G.inPrison = false;
+        G.prisonYears = 0;
+        G.alive = true;
+        G.heirlooms = [];
+        G.bitPass = false;
+        G.bitPassBalance = 0;
+        G.houses = 0;
+        G.cars = 0;
+        G.log = [];
+        G.year = 0;
 
-            // Hide the new-life overlay
-            document.getElementById('newLifeOverlay').classList.add('hidden');
+        document.getElementById('newLifeOverlay').classList.add('hidden');
 
-            addLog('You were born! Welcome to the world! 🎉');
-            render();
-            showTagline('A new life begins... ✨');
-        }
+        addLog('You were born! Welcome to the world! 🎉');
+        render();
+        showTagline('A new life begins... ✨');
+        saveToLocalStorage();
+    }
 
-        // ---------- SAVE / LOAD ----------
-        function saveGame() {
-            if (!G.name) { alert('Start a life first!'); return; }
+    // ---------- SAVE / LOAD ----------
+    function saveToLocalStorage() {
+        try {
             const json = JSON.stringify(G);
-            const base64 = btoa(unescape(encodeURIComponent(json)));
-            const blob = new Blob([base64], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'character.bitlife';
-            a.click();
-            URL.revokeObjectURL(url);
-            addLog('Game saved. 💾');
-        }
+            localStorage.setItem('onelife_save', json);
+        } catch (_) {}
+    }
 
-        function loadGame(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const base64 = e.target.result;
-                    const json = decodeURIComponent(escape(atob(base64)));
-                    const data = JSON.parse(json);
-                    Object.assign(G, data);
-                    // Ensure all fields exist
-                    ['heirlooms', 'houses', 'cars', 'bitPass', 'bitPassBalance'].forEach(k => {
-                        if (!(k in G)) G[k] = k === 'heirlooms' ? [] : k === 'bitPass' ? false : 0;
-                    });
-                    // Clamp stats
-                    ['health', 'happiness', 'smarts', 'looks', 'athleticism', 'discipline', 'fertility', 'karma',
-                        'willpower'
-                    ].forEach(s => { G[s] = clamp(G[s] || 0, 0, 100); });
-                    G.money = Math.max(0, G.money || 0);
-                    document.getElementById('newLifeOverlay').classList.add('hidden');
-                    addLog('Game loaded successfully. 📂');
-                    render();
-                    showTagline('Welcome back! 👋');
-                } catch (err) {
-                    alert('Failed to load save file. Invalid format.');
-                    console.error(err);
-                }
-            };
-            reader.readAsText(file);
-        }
+    function loadFromLocalStorage() {
+        try {
+            const raw = localStorage.getItem('onelife_save');
+            if (!raw) return false;
+            const data = JSON.parse(raw);
+            Object.assign(G, data);
+            // Ensure all fields exist
+            ['heirlooms', 'houses', 'cars', 'bitPass', 'bitPassBalance'].forEach(k => {
+                if (!(k in G)) G[k] = k === 'heirlooms' ? [] : k === 'bitPass' ? false : 0;
+            });
+            ['health', 'happiness', 'smarts', 'looks', 'athleticism', 'discipline', 'fertility', 'karma', 'willpower']
+            .forEach(s => { G[s] = clamp(G[s] || 0, 0, 100); });
+            G.money = Math.max(0, G.money || 0);
+            document.getElementById('newLifeOverlay').classList.add('hidden');
+            render();
+            showTagline('Welcome back! 👋');
+            return true;
+        } catch (_) { return false; }
+    }
 
-        // ---------- INITIALIZATION ----------
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set initial state (empty)
-            G = defaultState();
+    function saveGame() {
+        if (!G.name) { alert('Start a life first!'); return; }
+        const json = JSON.stringify(G);
+        const base64 = btoa(unescape(encodeURIComponent(json)));
+        const blob = new Blob([base64], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'character.onelife';
+        a.click();
+        URL.revokeObjectURL(url);
+        addLog('Game saved. 💾');
+    }
+
+    function loadGame(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const base64 = e.target.result;
+                const json = decodeURIComponent(escape(atob(base64)));
+                const data = JSON.parse(json);
+                Object.assign(G, data);
+                ['heirlooms', 'houses', 'cars', 'bitPass', 'bitPassBalance'].forEach(k => {
+                    if (!(k in G)) G[k] = k === 'heirlooms' ? [] : k === 'bitPass' ? false : 0;
+                });
+                ['health', 'happiness', 'smarts', 'looks', 'athleticism', 'discipline', 'fertility', 'karma', 'willpower']
+                .forEach(s => { G[s] = clamp(G[s] || 0, 0, 100); });
+                G.money = Math.max(0, G.money || 0);
+                document.getElementById('newLifeOverlay').classList.add('hidden');
+                addLog('Game loaded successfully. 📂');
+                render();
+                showTagline('Welcome back! 👋');
+            } catch (err) {
+                alert('Failed to load save file. Invalid format.');
+                console.error(err);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    // ---------- INIT ----------
+    document.addEventListener('DOMContentLoaded', function() {
+        // Try to load from localStorage
+        const loaded = loadFromLocalStorage();
+        if (!loaded) {
             // Show new life overlay
             document.getElementById('newLifeOverlay').classList.remove('hidden');
+            G = defaultState();
             render();
+        }
 
-            // Event listeners
-            document.getElementById('btnNewLife').addEventListener('click', newLife);
-            document.getElementById('btnNewLifeTop').addEventListener('click', () => {
-                if (confirm('Start a new life? Current progress will be lost.')) {
-                    newLife();
-                }
-            });
-
-            document.getElementById('btnSave').addEventListener('click', saveGame);
-            document.getElementById('btnLoad').addEventListener('click', () => {
-                document.getElementById('fileInput').click();
-            });
-            document.getElementById('fileInput').addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    loadGame(e.target.files[0]);
-                }
-                e.target.value = '';
-            });
-
-            // Hidden traits toggle
-            const toggleBtn = document.getElementById('hiddenToggle');
-            const panel = document.getElementById('hiddenPanel');
-            toggleBtn.addEventListener('click', () => {
-                panel.classList.toggle('open');
-                toggleBtn.classList.toggle('active');
-                toggleBtn.textContent = panel.classList.contains('open') ? '🧩 Hide Hidden Traits' :
-                '🧩 Show Hidden Traits';
-            });
-
-            // Keyboard shortcut: Age Up with Space
-            document.addEventListener('keydown', (e) => {
-                if (e.key === ' ' && !e.repeat) {
-                    e.preventDefault();
-                    if (!G.alive) {
-                        newLife();
-                        return;
-                    }
-                    if (G.inPrison) {
-                        ageUp();
-                        return;
-                    }
-                    ageUp();
-                }
-            });
-
-            // Initial render
-            render();
+        // Event listeners
+        document.getElementById('btnNewLife').addEventListener('click', newLife);
+        document.getElementById('btnNewLifeTop').addEventListener('click', () => {
+            if (confirm('Start a new life? Current progress will be lost.')) {
+                newLife();
+            }
         });
-    </script>
+
+        document.getElementById('btnSave').addEventListener('click', saveGame);
+        document.getElementById('btnLoad').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                loadGame(e.target.files[0]);
+            }
+            e.target.value = '';
+        });
+
+        // Hidden traits toggle
+        const toggleBtn = document.getElementById('hiddenToggle');
+        const panel = document.getElementById('hiddenPanel');
+        toggleBtn.addEventListener('click', () => {
+            panel.classList.toggle('open');
+            toggleBtn.classList.toggle('active');
+            toggleBtn.textContent = panel.classList.contains('open') ? '🧩 Hide Hidden Traits' :
+                '🧩 Show Hidden Traits';
+        });
+
+        // Keyboard shortcut: Age Up with Space
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && !e.repeat) {
+                e.preventDefault();
+                if (!G.alive) {
+                    newLife();
+                    return;
+                }
+                if (G.inPrison) {
+                    ageUp();
+                    return;
+                }
+                ageUp();
+            }
+        });
+
+        // If no life yet, show overlay
+        if (!G.name) {
+            document.getElementById('newLifeOverlay').classList.remove('hidden');
+        }
+    });
+</script>
 </body>
 </html>
